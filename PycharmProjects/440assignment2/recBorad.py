@@ -2,29 +2,29 @@ from Worker import Worker
 from Player import Player
 import numpy as np
 
-
-class Board:
+BOARD_SHAPE = (5,10)
+class RecBoard:
 
     def __init__(self,new=True):
 
-        self.board = np.empty((8,8),dtype = object)
+        self.board = np.empty(BOARD_SHAPE,dtype = object)
         self.player0 = list()
         self.player1 = list()
         if new:
-            for j in range(8):
+            for j in range(BOARD_SHAPE[1]):
                 # player0
-                for i in [0, 1]:
+                for i in [0]:
                     self.board[(i,j)] = Worker((i,j),0)
                     self.player0.append(self.board[(i,j)])
                 # player1
-                for i in [6,7]:
+                for i in [4]:
                     self.board[(i,j)] = Worker((i,j),1)
                     self.player1.append(self.board[(i, j)])
 
     def copyMove(self,oldP,newP):
-        copy = Board(False)
-        for i in range(8):
-            for j in range(8):
+        copy = RecBoard(False)
+        for i in range(BOARD_SHAPE[0]):
+            for j in range(BOARD_SHAPE[1]):
                 if self.board[(i,j)] is not None:
                     if self.board[(i,j)].owner is 0:
                         copy.board[(i,j)] = Worker((i,j),0)
@@ -70,7 +70,7 @@ class Board:
 
     def isValidMove(self,oldP,newP,vertical):
         (i,j) = newP
-        isInBound = i<8 and i>=0 and j<8 and j>=0
+        isInBound = i<BOARD_SHAPE[0] and i>=0 and j<BOARD_SHAPE[1] and j>=0
 
         if isInBound:
 
@@ -89,7 +89,7 @@ class Board:
 
 
     def print(self):
-        print('\n---------------------------------')
+        print('\n-----------------------------------------')
         for row in self.board:
             print('| ',end='')
             for piece in row:
@@ -97,7 +97,7 @@ class Board:
                     print(piece.owner,end=' | ')
                 else:
                     print(' ',end = ' | ')
-            print('\n---------------------------------')
+            print('\n-----------------------------------------')
 
         print("player 0:"+str(len(self.player0)))
         print([worker.position  for worker in self.player0])
@@ -135,28 +135,8 @@ class Board:
         for base in [piece.owner for piece in self.board[0] if piece is not None ]:
             if (base==1):
                 return 1
-        for base in [piece.owner for piece in self.board[7] if piece is not None]:
+        for base in [piece.owner for piece in self.board[4] if piece is not None]:
             if (base==0):
                 return 0
         # there is no winner
-        return -1
-
-    def checkWinner2(self):
-        if len(self.player0) <3:
-            return 1
-        if len(self.player1) <3:
-            return 0
-
-        totalBase=0
-        for base in [piece.owner for piece in self.board[0] if piece is not None ]:
-            if (base==1):
-                totalBase+=1
-            if totalBase>=3:
-                return 1
-        totalBase= 0
-        for base in [piece.owner for piece in self.board[7] if piece is not None]:
-            if (base==0):
-                totalBase += 1
-            if totalBase >= 3:
-                return 0
         return -1
