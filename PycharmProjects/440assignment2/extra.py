@@ -16,16 +16,13 @@ playerExpanded = np.array([0, 0])
 totalTurn = 0
 while (winner == -1 ):
 
-
-    _, board, expanded = alpha_beta(turn, board, 4, offensive1, True, -np.inf, np.inf)
-
+    _, board, expanded = alpha_beta(turn, board, 4, offensive1, True)
 
     playerExpanded[turn] += expanded
 
     turn = 1 - turn
     winner = board.checkWinner()
     totalTurn += 1
-    board.print()
 
 e = time.time()
 

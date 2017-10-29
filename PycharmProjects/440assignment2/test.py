@@ -3,11 +3,14 @@ from search import minimax,alpha_beta,alpha_beta2,alpha_beta3
 from Heuristic import defensive1,offensive1,defensive2,offensive2
 import time
 import numpy as np
+from recBorad import RecBoard
+
 
 def run(MATCH_UP):
 
 
     board = Board()
+    #board = RecBoard()
     s = time.time()
 
     turn = 0
@@ -76,7 +79,7 @@ def run(MATCH_UP):
         playerExpanded[turn] += expanded
 
         turn = 1-turn
-        winner = board.checkWinner()
+        winner = board.checkWinner2()
         totalTurn+=1
 
     print()
@@ -116,24 +119,34 @@ def run(MATCH_UP):
 # print("\nAverage node expended: " + str(playerExpanded // (totalTurn / 2)))
 # print("\ntime: " + ("%.3f" % (e - s))+'s')
 
-board = Board()
-winner = -1
-turn =0
-playerExpanded = np.array([0, 0])
-totalTurn = 0
-while (winner == -1 and  totalTurn<1):
-    s = time.time()
-    _, board, expanded = alpha_beta(turn, board, 4, offensive1, True)
-    e = time.time()
-    #print("with out ordering ")
-    playerExpanded[turn] += expanded
-    #print("\ntime: " + ("%.3f" % (e - s))+'s')
-    #print("\nNode expended: "+str(expanded))
-    turn = 1 - turn
-    winner = board.checkWinner()
-    totalTurn += 1
-
-print("\n\nWinner is "+str(winner) )
-print("\nTotal turns: "+str(totalTurn))
-print("\nAverage node expended: " + str(playerExpanded // (totalTurn / 2)))
-print("\ntime: " + ("%.3f" % (e - s))+'s')
+# board = Board()
+# board.move((1,0),(4,0))
+# board.move((1,1),(3,1))
+# board.move((0,0),(4,4))
+# board.move((0,4),(2,3))
+# board.move((1,2),(5,3))
+# board.move((1,3),(3,0))
+# board.move((1,7),(3,3))
+# board.move((1,6),(3,4))
+# winner = -1
+# turn =0
+# playerExpanded = np.array([0, 0])
+# totalTurn = 0
+# s = time.time()
+#
+# while (winner == -1):
+#
+#     _, board, expanded = alpha_beta(turn, board, 3, offensive1, True)
+#     #print("with out ordering ")
+#     playerExpanded[turn] += expanded
+#     #print("\ntime: " + ("%.3f" % (e - s))+'s')
+#     #print("\nNode expended: "+str(expanded))
+#     turn = 1 - turn
+#     winner = board.checkWinner()
+#     totalTurn += 1
+#
+# e = time.time()
+# print("\n\nWinner is "+str(winner) )
+# print("\nTotal turns: "+str(totalTurn))
+# print("\nAverage node expended: " + str(playerExpanded // (totalTurn / 2)))
+# print("\ntime: " + ("%.3f" % (e - s))+'s')

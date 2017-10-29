@@ -135,11 +135,14 @@ def alpha_beta2(turn, board,level,h,isMax,alpha= -np.inf,beta=np.inf):
 
     # recursive case:
     allMoves = board.getAllMoves(turn)
-
     d = getBetterOrdering(allMoves, board, turn, h, isMax)
+
     if (isMax):
         maxValue = -np.inf
         for currBoard in d:
+            currBoard.print()
+            print(h(currBoard,turn))
+
             currValue, _,expandedBelow = alpha_beta2(1-turn,currBoard,level-1,h,not isMax,alpha,beta)
             sumExpanded += expandedBelow+1
             if currValue > maxValue:
