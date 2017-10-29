@@ -5,6 +5,7 @@ import time
 import numpy as np
 
 
+
 board = Board()
 
 print("extra")
