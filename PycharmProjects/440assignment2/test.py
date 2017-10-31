@@ -69,9 +69,9 @@ def run(MATCH_UP):
     while (winner==-1):
 
         if turn is 0:
-            _, board, expanded = search0(turn,board,depth0,h0,True)
+            _, board, expanded = search0(turn,board,depth0,h0,True,-np.inf,np.inf,True)
         else:
-            _, board, expanded = search1(turn, board, depth1, h1, True)
+            _, board, expanded = search1(turn, board, depth1, h1, True,-np.inf,np.inf,True)
         #board.print()
         #_, board, expanded = alpha_beta3(turn, board, 4, offensive1, True,totalTurn, -np.inf, np.inf)
 
@@ -91,8 +91,8 @@ def run(MATCH_UP):
     print("\nTotal turns: "+str(totalTurn))
     print("\nNode expanded: player 0: " + str(playerExpanded[0])
           + ", player 1: " + str(playerExpanded[1]))
-    print("\nAverage node expanded: "+str(sum(playerExpanded)/turn) )
-    print("\nAverage time per move: " + ("%.3f" % ((e - s)/turn) )+'s')
+    print("\nAverage node expanded: "+str(sum(playerExpanded)/totalTurn) )
+    print("\nAverage time per move: " + ("%.3f" % ((e - s)/totalTurn) )+'s')
     print("\nWorkers captured by player 0: " + str(10 - len(board.player1))
           + ", by player 1: " + str(10 - len(board.player0)))
     print("\nMoves by player 0: "+ str((totalTurn+1)//2)

@@ -57,7 +57,7 @@ def minimax(turn, board, level, h, isMax):
 
 
 
-def alpha_beta(turn, board,level,h,isMax,alpha= -np.inf,beta=np.inf):
+def alpha_beta(turn, board,level,h,isMax,alpha= -np.inf,beta=np.inf,isFirst=False):
     bestBoard = board
     sumExpanded = 0
 
@@ -73,6 +73,9 @@ def alpha_beta(turn, board,level,h,isMax,alpha= -np.inf,beta=np.inf):
         for (oldP, newP) in allMoves:
             currBoard = board.copyMove(oldP,newP)
 
+            # first level
+            if(isFirst and board.checkWinner() is turn):
+                return 0,currBoard,0
 
             currValue, _,expandedBelow = alpha_beta(1-turn,currBoard,level-1,h,not isMax,alpha,beta)
             sumExpanded += expandedBelow+1
