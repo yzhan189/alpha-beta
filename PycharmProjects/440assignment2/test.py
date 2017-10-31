@@ -9,8 +9,8 @@ from recBorad import RecBoard
 def run(MATCH_UP):
 
 
-    board = Board()
-    #board = RecBoard()
+    #board = Board()
+    board = RecBoard()
     s = time.time()
 
     turn = 0
@@ -79,7 +79,7 @@ def run(MATCH_UP):
         playerExpanded[turn] += expanded
 
         turn = 1-turn
-        winner = board.checkWinner2()
+        winner = board.checkWinner()
         totalTurn+=1
 
     print()
@@ -89,8 +89,14 @@ def run(MATCH_UP):
 
     print("\n\nWinner is "+str(winner) )
     print("\nTotal turns: "+str(totalTurn))
-    print("\nAverage node expended: " + str(playerExpanded // (totalTurn / 2)))
-    print("\ntime: " + ("%.3f" % (e - s))+'s')
+    print("\nNode expanded: player 0: " + str(playerExpanded[0])
+          + ", player 1: " + str(playerExpanded[1]))
+    print("\nAverage node expanded: "+str(sum(playerExpanded)/turn) )
+    print("\nAverage time per move: " + ("%.3f" % ((e - s)/turn) )+'s')
+    print("\nWorkers captured by player 0: " + str(10 - len(board.player1))
+          + ", by player 1: " + str(10 - len(board.player0)))
+    print("\nMoves by player 0: "+ str((totalTurn+1)//2)
+          + ", by player 1: "+ str((totalTurn)//2) )
 
 
 
@@ -120,14 +126,14 @@ def run(MATCH_UP):
 # print("\ntime: " + ("%.3f" % (e - s))+'s')
 
 # board = Board()
-# board.move((1,0),(4,0))
-# board.move((1,1),(3,1))
-# board.move((0,0),(4,4))
-# board.move((0,4),(2,3))
-# board.move((1,2),(5,3))
-# board.move((1,3),(3,0))
-# board.move((1,7),(3,3))
-# board.move((1,6),(3,4))
+# # board.move((1,0),(4,0))
+# # board.move((1,1),(3,1))
+# # board.move((0,0),(4,4))
+# # board.move((0,4),(2,3))
+# # board.move((1,2),(5,3))
+# # board.move((1,3),(3,0))
+# # board.move((1,7),(3,3))
+# # board.move((1,6),(3,4))
 # winner = -1
 # turn =0
 # playerExpanded = np.array([0, 0])
@@ -135,8 +141,10 @@ def run(MATCH_UP):
 # s = time.time()
 #
 # while (winner == -1):
-#
-#     _, board, expanded = alpha_beta(turn, board, 3, offensive1, True)
+#     if turn is 0:
+#         _, board, expanded = minimax(turn, board, 3, offensive1, True)
+#     else:
+#         _, board, expanded = minimax(turn, board, 3, offensive1, True)
 #     #print("with out ordering ")
 #     playerExpanded[turn] += expanded
 #     #print("\ntime: " + ("%.3f" % (e - s))+'s')
@@ -146,6 +154,7 @@ def run(MATCH_UP):
 #     totalTurn += 1
 #
 # e = time.time()
+# board.print()
 # print("\n\nWinner is "+str(winner) )
 # print("\nTotal turns: "+str(totalTurn))
 # print("\nAverage node expended: " + str(playerExpanded // (totalTurn / 2)))

@@ -73,10 +73,7 @@ def alpha_beta(turn, board,level,h,isMax,alpha= -np.inf,beta=np.inf):
         for (oldP, newP) in allMoves:
             currBoard = board.copyMove(oldP,newP)
 
-            # if currBoard in dict:
-            #     currValue = dict[currBoard]
-            #     print("yeah")
-            # else:
+
             currValue, _,expandedBelow = alpha_beta(1-turn,currBoard,level-1,h,not isMax,alpha,beta)
             sumExpanded += expandedBelow+1
                 # dict[currBoard] = currValue
@@ -98,9 +95,7 @@ def alpha_beta(turn, board,level,h,isMax,alpha= -np.inf,beta=np.inf):
         for (oldP, newP) in allMoves:
             currBoard = board.copyMove(oldP, newP)
 
-            # if currBoard in dict:
-            #     currValue = dict[currBoard]
-            # else:
+
             currValue, _,expandedBelow = alpha_beta(1 - turn, currBoard, level - 1, h, not isMax,alpha,beta)
             sumExpanded += expandedBelow+1
                 #dict[currBoard] = currValue
